@@ -1,0 +1,40 @@
+name: Ojugo Android Builder
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch: # Allows manual pipeline triggering from GitHub Actions page
+
+jobs:
+  build:
+    name: Build Ojugo Debug APK
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+        cache: 'gradle'
+
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v3
+      with:
+        gradle-version: wrapper # Falls back or configures environment cleanly
+
+    - name: Run Assemble Debug Build
+      run: gradle assembleDebug
+
+    - name: Upload Debug APK Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ojugo-debug-apk
+        path: app/build/outputs/apk/debug/app-debug.apk
+        if-no-files-found: error
+        retention-days: 14

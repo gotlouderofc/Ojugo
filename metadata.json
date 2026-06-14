@@ -1,0 +1,6 @@
+{
+  "name": "Ojugo",
+  "description": "Create, compile, sign, and build HTML web apps or live website URLs into fully compatible, fast native Android APKs with offline support, local persistence, and customizable orientation/refresh features.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
